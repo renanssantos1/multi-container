@@ -14,5 +14,5 @@ script:
 after_success:
   - docker build -t renanssantos/multi-client ./client
   - docker build -t renanssantos/multi-nginx ./nginx
-  - docker build -t renanssantos/muilti-server ./server
-  - docker build -t renanssantos/worker ./worker
+  - docker build -t renanssantos/multi-server ./server
+  - docker build -t renanssantos/multi-worker ./worker
