@@ -16,3 +16,10 @@ after_success:
   - docker build -t renanssantos/multi-nginx ./nginx
   - docker build -t renanssantos/multi-server ./server
   - docker build -t renanssantos/multi-worker ./worker
+# Docker login CLI? 
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  #push image to docker
+  - docker push renanssantos/multi-client
+  - docker push renanssantos/multi-nginx
+  - docker push renanssantos/multi-server
+  - docker push renanssantos/multi-worker
