@@ -1,0 +1,18 @@
+language: generic 
+sudo: required
+services: 
+  - docker
+
+before_install:
+  - docker build -t renanssantos/react-test -f ./client/Dockerfile.dev 
+
+# Run tests frontend coverage
+script:
+  - docker run -e CI=true renanssantos/react-test npm test -- --coverage
+
+# After scritps succcess execute production version images 
+after_success:
+  - docker build -t renanssantos/multi-client ./client
+  - docker build -t renanssantos/multi-nginx ./nginx
+  - docker build -t renanssantos/muilti-server ./server
+  - docker build -t renanssantos/worker ./worker
