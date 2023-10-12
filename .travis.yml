@@ -6,20 +6,16 @@ services:
 before_install:
   - docker build -t renanssantos/react-test -f ./client/Dockerfile.dev ./client
 
-# Run tests frontend coverage
 script:
   - docker run -e CI=true renanssantos/react-test npm test -- --coverage
 
-# After scritps succcess execute production version images 
 after_success:
   - docker build -t renansantos01/multi-client ./client
   - docker build -t renansantos01/multi-nginx ./nginx
   - docker build -t renansantos01/multi-server ./server
   - docker build -t renansantos01/multi-worker ./worker
-# Docker login CLI? 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  #push image to docker
-  - docker push renansantos01/multi-client:v1
-  - docker push renansantos01/multi-nginx:v1
-  - docker push renansantos01/multi-server:v1
-  - docker push renansantos01/multi-worker:v1
+  - docker push renansantos01/multi-client
+  - docker push renansantos01/multi-nginx
+  - docker push renansantos01/multi-server
+  - docker push renansantos01/multi-worker
