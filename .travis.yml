@@ -19,3 +19,15 @@ after_success:
   - docker push renansantos01/multi-nginx
   - docker push renansantos01/multi-server
   - docker push renansantos01/multi-worker
+
+deploy:
+  provier: elasticbeanstalk
+  region: 'us-east-2'
+  app: 'multi-docker'
+  env: 'Multi-docker-env'
+  bucket_name: 'elasticbeanstalk-us-east-2-157978022792'
+  bucket_path: 'multi-docker'
+  on:
+    branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
